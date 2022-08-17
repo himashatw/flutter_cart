@@ -25,19 +25,22 @@ class Shop extends StatelessWidget {
             flex: 8,
             child: ListView.builder(
               itemCount: items.length,
-              itemBuilder: (context, index) => ListTile(
-                leading: Text(
-                  "${index + 1}",
-                  style: Theme.of(context).textTheme.bodySmall,
+              itemBuilder: (context, index) => Card(
+                elevation: 4,
+                child: ListTile(
+                  leading: Text(
+                    "${index + 1}",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  title: Text(items.elementAt(index).name),
+                  subtitle: Text(items.elementAt(index).price.toString()),
+                  trailing: IconButton(
+                      onPressed: () {
+                        Provider.of<CartProvider>(context, listen: false)
+                            .removeItem(items.elementAt(index));
+                      },
+                      icon: const Icon(Icons.delete)),
                 ),
-                title: Text(items.elementAt(index).name),
-                subtitle: Text(items.elementAt(index).price.toString()),
-                trailing: IconButton(
-                    onPressed: () {
-                      Provider.of<CartProvider>(context, listen: false)
-                          .removeItem(items.elementAt(index));
-                    },
-                    icon: const Icon(Icons.delete)),
               ),
             ),
           ),
